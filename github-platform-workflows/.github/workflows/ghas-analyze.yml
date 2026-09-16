@@ -1,0 +1,37 @@
+name: GHAS CodeQL Analysis Template
+
+on:
+  workflow_call:
+    inputs:
+      language:
+        required: true
+        type: string
+      build-mode:
+        required: false
+        type: string
+        default: "none"
+
+jobs:
+  codeql-analyze:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Init CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ inputs.language }}
+          build-mode: ${{ inputs.build-mode }}
+
+      - name: Autobuild
+        if: inputs.build-mode == 'autobuild'
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Analyze
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ inputs.language }}"

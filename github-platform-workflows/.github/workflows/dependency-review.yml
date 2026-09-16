@@ -1,0 +1,22 @@
+name: Dependency Review Template
+
+on:
+  workflow_call:
+    inputs:
+      fail-on-severity:
+        required: false
+        type: string
+        default: "high"
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: ${{ inputs.fail-on-severity }}

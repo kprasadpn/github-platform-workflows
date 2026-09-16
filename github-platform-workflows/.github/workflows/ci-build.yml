@@ -1,0 +1,34 @@
+name: CI Build Template
+
+on:
+  workflow_call:
+    inputs:
+      app-name:
+        required: true
+        type: string
+      python-version:
+        required: false
+        type: string
+        default: "3.11"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: <your-github-username>/github-platform-workflows/.github/actions/setup-python-env@main
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build / compile check
+        run: python -m py_compile app.py
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.app-name }}-build
+          path: .
