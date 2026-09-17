@@ -14,14 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: kprasadpn/github-platform-workflows/.github/actions/setup-python-env@main
+      - uses: kprasadpn/github-platform-workflows/.github/actions/ci-unit-test@main
         with:
           python-version: ${{ inputs.python-version }}
-
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          pip install pytest
-
-      - name: Run unit tests
-        run: pytest tests/ -v

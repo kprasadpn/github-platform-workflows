@@ -21,17 +21,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Init CodeQL
-        uses: github/codeql-action/init@v3
+      - uses: kprasadpn/github-platform-workflows/.github/actions/codeql-init@main
         with:
-          languages: ${{ inputs.language }}
+          language: ${{ inputs.language }}
           build-mode: ${{ inputs.build-mode }}
 
-      - name: Autobuild
-        if: inputs.build-mode == 'autobuild'
-        uses: github/codeql-action/autobuild@v3
-
-      - name: Analyze
-        uses: github/codeql-action/analyze@v3
+      - uses: kprasadpn/github-platform-workflows/.github/actions/codeql-analyze@main
         with:
-          category: "/language:${{ inputs.language }}"
+          language: ${{ inputs.language }}

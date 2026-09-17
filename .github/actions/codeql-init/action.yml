@@ -1,0 +1,18 @@
+name: 'CodeQL Init'
+description: 'Initialize CodeQL analysis for the requested language'
+inputs:
+  language:
+    description: 'CodeQL language to analyze'
+    required: true
+  build-mode:
+    description: 'CodeQL build mode used by the following build steps'
+    required: false
+    default: "none"
+runs:
+  using: "composite"
+  steps:
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ inputs.language }}
+        build-mode: ${{ inputs.build-mode }}
