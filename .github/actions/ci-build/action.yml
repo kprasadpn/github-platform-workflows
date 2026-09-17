@@ -1,0 +1,30 @@
+name: 'CI Build'
+description: 'Checkout, install deps, and build/compile-check the app'
+inputs:
+  app-name:
+    required: true
+  python-version:
+    required: false
+    default: "3.11"
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+
+    - uses: kprasadpn/github-platform-workflows/.github/actions/setup-python-env@main
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Install dependencies
+      shell: bash
+      run: pip install -r requirements.txt
+
+    - name: Build / compile check
+      shell: bash
+      run: python -m py_compile app.py
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.app-name }}-build
+        path: .
