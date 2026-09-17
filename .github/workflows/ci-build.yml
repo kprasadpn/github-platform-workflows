@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: <your-github-username>/github-platform-workflows/.github/actions/setup-python-env@main
+      - uses: kprasadp/github-platform-workflows/.github/actions/setup-python-env@main
         with:
           python-version: ${{ inputs.python-version }}
 
