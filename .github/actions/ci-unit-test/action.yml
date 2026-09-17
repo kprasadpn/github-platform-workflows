@@ -1,5 +1,5 @@
 name: 'CI Unit Test'
-description: 'Checkout, install deps, and run unit tests'
+description: 'Install dependencies and run unit tests'
 inputs:
   python-version:
     required: false
@@ -7,8 +7,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v4
-
     - uses: kprasadpn/github-platform-workflows/.github/actions/setup-python-env@main
       with:
         python-version: ${{ inputs.python-version }}

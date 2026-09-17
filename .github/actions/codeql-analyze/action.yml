@@ -1,0 +1,13 @@
+name: 'CodeQL Analyze'
+description: 'Analyze and upload CodeQL results'
+inputs:
+  language:
+    description: 'CodeQL language that was initialized'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Analyze with CodeQL
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:${{ inputs.language }}"
